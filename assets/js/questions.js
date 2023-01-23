@@ -3,49 +3,48 @@ let quizQuestions = [
         question:   "What file extension does a javascript file have?",
 
         answers: {
-            one: ".xml",
-            two: ".js",
-            three: ".html",
-            four: "java"
-        },
-        
-        correctOption:  "two"        
+             one: ".xml",
+             two: ".js",
+             three: ".html",
+             four: ".java"
+        },               
+        correctOption:  ".js"        
     },
     {
         question:   "Question 2?",
 
         answers: {
-            one: ".xml",
-            two: "js",
-            three: ".html",
-            four: "java"
+            one: "Q2A",
+            two: "Q2B",
+            three: "Q2C",
+            four: "Q2D"
         },
         
-        correctOption:  "2."        
+        correctOption:  "Q2D"        
     },
     {
         question:   "Question 3?",
 
         answers: {
-            one: ".xml",
-            two: "js",
-            three: ".html",
-            four: "java"
+            one: "Q3A",
+            two: "Q3B",
+            three: "Q3C",
+            four: "Q3D"
         },
         
-        correctOption:  "2."        
+        correctOption:  "Q3C"        
     },
     {
         question:   "Question 4?",
 
         answers: {
-            one: ".xml",
-            two: "js",
-            three: ".html",
-            four: "java"
+            one: "Q4A",
+            two: "Q4B",
+            three: "Q4C",
+            four: "Q4D"
         },
         
-        correctOption:  "2."        
+        correctOption:  "Q4A"        
     }
 ]
 
@@ -62,8 +61,8 @@ let quizQuestions = [
 //     return;
 //   }
 
-function questionOne() {
-    let qOne = quizQuestions[0].question;
-    console.log(qOne);
-    return qOne;
-}
+// function questionOne() {
+//     let qOne = quizQuestions[0].question;
+//     console.log(qOne);
+//     return qOne;
+// }

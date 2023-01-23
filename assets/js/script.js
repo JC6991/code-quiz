@@ -4,16 +4,36 @@ let timeEl = document.querySelector("#time");
 const startScreen = document.querySelector("#start-screen");
 let questionTitle = document.querySelector("#question-title");
 let choices = document.querySelector("#choices");
-const questions = document.querySelector("#questions")
+const questions = document.querySelector("#questions");
+const endScreen = document.querySelector("#end-screen");
+const finalScore = document.querySelector("#final-score")
+
+
+let quizQuestionsIndex = 0;
+let secondsLeft = 30;
+let correctAnswer = quizQuestions[quizQuestionsIndex].correctOption;
+let score = 0;
+let answersArray = Object.values(quizQuestions[quizQuestionsIndex].answers);
+let lastIndex = quizQuestions.length - 1;
+console.log(lastIndex);
+
+// Create ordered list element and list array
+const olEl = document.createElement("ol")
+const liEl = [];    
+
+// append ol element choices id
+choices.appendChild(olEl);
+olEl.setAttribute("id", "list");
+    
 
 function startGame() {
     startButton.disabled = true;
+    startScreen.remove();
+    questions.classList.toggle("hide");
+    // console.log(questions.classList.toggle("hide"));
     startTimer();
     startQuiz();
 }
-
-let secondsLeft = 10;
-timeEl.textContent = secondsLeft;
 
 function startTimer() {
     // Sets interval in variable
@@ -24,57 +44,72 @@ function startTimer() {
       if(secondsLeft === 0) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
+        endGame();
             
       }
   
     }, 1000);
   }
 
-  function startQuiz() {
-    startScreen.remove();
-    document.getElementById('questions').style.display='block'; 
-           
-    questionTitle.textContent = questionOne();
-    // document.body.append(questionTitle);
+function startQuiz() { 
 
-    // Create ordered list element
-    const olEl = document.createElement("ol")
-    
-    // Create list items
-    let liEl1 = document.createElement("li");
-    let liEl2 = document.createElement("li");
-    let liEl3 = document.createElement("li");
-    let liEl4 = document.createElement("li");
+  if(quizQuestionsIndex <= lastIndex) {
+    questionTitle.textContent = quizQuestions[quizQuestionsIndex].question;
+    console.log(questionTitle.textContent);
+  }
+  // document.getElementById('questions').style.display='block';  
+  
+  if(olEl.childElementCount === 4) {
+    document.getElementById("list").innerHTML = "";
+    console.log("cleared ol");
+  }
+        
+  // Create list items
+  for(let i = 0; i < answersArray.length; i++) {       
 
-    // add content for list items
-    liEl1.textContent = quizQuestions[0].answers.one;
-    liEl2.textContent = quizQuestions[0].answers.two;
-    liEl3.textContent = quizQuestions[0].answers.three;
-    liEl4.textContent = quizQuestions[0].answers.four;
+    liEl[i] = document.createElement("li");
+    liEl[i].textContent = answersArray[i];      
+    olEl.appendChild(liEl[i]);             
+                
+    // liEl[i].addEventListener("click", clickAnswer);
+    liEl[i].addEventListener("click", clickAnswer);
+  }
+ }      
+   
 
-    // append ol element choices id
-    choices.appendChild(olEl);
+  function clickAnswer(event) {
+    if(event.target.innerText === correctAnswer) {        
+      // increment quizQuestionsIndex by 1
+      quizQuestionsIndex++;    
+      // increment score by 1  
+      score++;
+      if(quizQuestionsIndex > lastIndex) {
+        endGame();
+      }
+      answersArray = Object.values(quizQuestions[quizQuestionsIndex].answers);      
+      correctAnswer = quizQuestions[quizQuestionsIndex].correctOption;
+      startQuiz();
+    }
+    else if(event.target.innerText != correctAnswer) {
+      quizQuestionsIndex++;
+      secondsLeft -= 5;      
+      if(quizQuestionsIndex > lastIndex) {
+        endGame();
+      }
+      if(quizQuestionsIndex <= lastIndex) {
+        answersArray = Object.values(quizQuestions[quizQuestionsIndex].answers);
+        correctAnswer = quizQuestions[quizQuestionsIndex].correctOption;
+        startQuiz();
+      }
+      
+    }
+  }
 
-    // append list items to ordered list element
-    olEl.appendChild(liEl1);
-    olEl.appendChild(liEl2);
-    olEl.appendChild(liEl3);
-    olEl.appendChild(liEl4);
-
-    // Add styling to list element
-// olEl.setAttribute("style", "background:#333333; padding:20px;");
-// // Add styling to list items
-// liEl1.setAttribute("style", " color:white; background: #666666; padding: 5px; margin-left: 35px;");
-// liEl2.setAttribute("style", " color:white; background: #777777; padding: 5px; margin-left: 35px;");
-// liEl3.setAttribute("style", " color:white; background: #888888; padding: 5px; margin-left: 35px;");
-// liEl4.setAttribute("style", " color:white; background: #999999; padding: 5px; margin-left: 35px;");
-
-
-    // let ansLength = Object.keys(quizQuestions[0].answers)    
-    // for(i = 0; i < ansLength; i++) {
-    //   let liEl1 = document.createElement("li")
-    // }
-    
+  function endGame() {
+    questions.remove();     
+    // endScreen.classList.toggle("hide");
+    document.getElementById('end-screen').style.display='block';  
+    finalScore.textContent = score;    
   }
 
 // Event listener to call startGame function when startButton is clicked
