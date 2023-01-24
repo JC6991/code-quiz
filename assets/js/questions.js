@@ -11,41 +11,65 @@ let quizQuestions = [
         correctOption:  ".js"        
     },
     {
-        question:   "Question 2?",
+        question:   "Which of the following is not a data type?",
 
         answers: {
-            one: "Q2A",
-            two: "Q2B",
-            three: "Q2C",
-            four: "Q2D"
+            one: "Boolean",
+            two: "Object",
+            three: "Var",
+            four: "Null"
         },
         
-        correctOption:  "Q2D"        
+        correctOption:  "Var"        
     },
     {
-        question:   "Question 3?",
+        question:   "The condition in an if/else statement is enclosed within.",
 
         answers: {
-            one: "Q3A",
-            two: "Q3B",
-            three: "Q3C",
-            four: "Q3D"
+            one: "Parenthesis",
+            two: "Curly brackets",
+            three: "Angular brackets",
+            four: "Quotation marks"
         },
         
-        correctOption:  "Q3C"        
+        correctOption:  "Parenthesis"        
     },
     {
-        question:   "Question 4?",
+        question:   "Which of the following is correct about JavaScript?",
 
         answers: {
-            one: "Q4A",
-            two: "Q4B",
-            three: "Q4C",
-            four: "Q4D"
+            one: "JavaScript is an Object-Based language",
+            two: "JavaScript is an Object-Oriented language",
+            three: "JavaScript is a High-level language",
+            four: "JavaScript is Assembly-language"
         },
         
-        correctOption:  "Q4A"        
-    }
+        correctOption:  "JavaScript is an Object-Based language"        
+    },
+    {
+        question:   "Arrays in JavaScript are defined by which of the following statements?",
+
+        answers: {
+            one: "It is an ordered list of functions",
+            two: "It is an ordered list of string",
+            three: "It is an ordered list of objects",
+            four: "It is an ordered list of values"
+        },
+        
+        correctOption:  "It is an ordered list of values"        
+    },
+    {
+        question:   "Which of the following object is the main entry point to all client-side JavaScript features and APIs?",
+
+        answers: {
+            one: "Position",
+            two: "Location",
+            three: "Window",
+            four: "Door"
+        },
+        
+        correctOption:  "Window"        
+    }    
 ]
 
 // function randomQuestion() {
