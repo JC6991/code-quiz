@@ -7,6 +7,8 @@ let choices = document.querySelector("#choices");
 const questions = document.querySelector("#questions");
 const endScreen = document.querySelector("#end-screen");
 const finalScore = document.querySelector("#final-score")
+const initials = document.querySelector("#initials");
+const submitButton = document.querySelector("#submit");
 
 
 let quizQuestionsIndex = 0;
@@ -86,9 +88,11 @@ function startQuiz() {
       if(quizQuestionsIndex > lastIndex) {
         endGame();
       }
-      answersArray = Object.values(quizQuestions[quizQuestionsIndex].answers);      
-      correctAnswer = quizQuestions[quizQuestionsIndex].correctOption;
-      startQuiz();
+      if(quizQuestionsIndex <= lastIndex) {
+        answersArray = Object.values(quizQuestions[quizQuestionsIndex].answers);      
+        correctAnswer = quizQuestions[quizQuestionsIndex].correctOption;
+        startQuiz();
+      }
     }
     else if(event.target.innerText != correctAnswer) {
       quizQuestionsIndex++;
@@ -105,12 +109,66 @@ function startQuiz() {
     }
   }
 
-  function endGame() {
-    questions.remove();     
-    // endScreen.classList.toggle("hide");
-    document.getElementById('end-screen').style.display='block';  
-    finalScore.textContent = score;    
+function endGame() {
+  questions.remove();     
+  // endScreen.classList.toggle("hide");
+  document.getElementById('end-screen').style.display='block';  
+  finalScore.textContent = score;    
+  }  
+  
+function saveScore(event) {
+  // event.preventDefault();
+  // disable submit button once clicked
+  submitButton.disabled = true;
+
+  let letterChar = /[a-zA-Z]/;
+  
+  // console.log(typeof initials.value);
+
+  // let currentUser = initials.value;
+  // console.log(currentUser);
+  // currentUser.match(letterChar);
+
+  // console.log(initials.value.match(letterChar));
+
+  if(initials.value === "") {
+    // if user doesn't input initials, return early
+    alert("Please enter your initials")
+    submitButton.disabled = false;
+    return;
+  }else if(!initials.value.match(letterChar)){
+    // if user doesn't input letter characters, return early
+    alert("Please enter alphabetical characters (A-Z)")
+    submitButton.disabled = false;
+    return;
+  }else{
+    let userInitials = initials.value.toUpperCase();
+
+    let newEntry = {
+    initials: userInitials,
+    playerScore: score
   }
+
+  let highScores = [];
+  
+  if(localStorage.getItem(highScores) === null) {
+
+        highScores.push(newEntry);
+
+        localStorage.setItem("highScores", JSON.stringify(newEntry)) 
+        }
+  } 
+
+  
+
+  // console.log(newEntry);
+
+
+}
+  
+submitButton.addEventListener("click", saveScore)
+
+  
 
 // Event listener to call startGame function when startButton is clicked
 startButton.addEventListener("click", startGame);
