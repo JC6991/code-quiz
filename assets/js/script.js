@@ -17,7 +17,7 @@ let correctAnswer = quizQuestions[quizQuestionsIndex].correctOption;
 let score = 0;
 let answersArray = Object.values(quizQuestions[quizQuestionsIndex].answers);
 let lastIndex = quizQuestions.length - 1;
-console.log(lastIndex);
+
 
 // Create ordered list element and list array
 const olEl = document.createElement("ol")
@@ -46,8 +46,10 @@ function startTimer() {
       if(secondsLeft === 0) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
-        endGame();
-            
+        endGame();            
+      }
+      else if(quizQuestionsIndex > lastIndex) {
+        clearInterval(timerInterval);
       }
   
     }, 1000);
@@ -57,13 +59,13 @@ function startQuiz() {
 
   if(quizQuestionsIndex <= lastIndex) {
     questionTitle.textContent = quizQuestions[quizQuestionsIndex].question;
-    console.log(questionTitle.textContent);
+    // console.log(questionTitle.textContent);
   }
   // document.getElementById('questions').style.display='block';  
   
   if(olEl.childElementCount === 4) {
     document.getElementById("list").innerHTML = "";
-    console.log("cleared ol");
+    // console.log("cleared ol");
   }
         
   // Create list items
@@ -98,6 +100,7 @@ function startQuiz() {
       quizQuestionsIndex++;
       secondsLeft -= 5;      
       if(quizQuestionsIndex > lastIndex) {
+        
         endGame();
       }
       if(quizQuestionsIndex <= lastIndex) {
